@@ -1,36 +1,86 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de Pessoas</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <title>Listagem De Pessoas</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cabecalho.css') }}" />
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/table.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}" />
 </head>
 
 <body>
-    <h1>Cadastro de Pessoas</h1>
+  <!-- Lista de pessoas cadastradas -->
+  <header class="cabecalho">
+    <section>
+      <nav>
+        <ul class="items">
+          <li><button class="hamburger-menu">&#9776;</button>
+            <ul class="dropdown">
+              <li><a href="#">Quem somos</a></li>
+              <li><a href="#">Deixe um cometário</a></li>
+            </ul>
 
-    <!-- Formulário para cadastrar uma nova pessoa -->
-    <h2>Cadastrar Nova Pessoa</h2>
-    <form action="/cadastrar" method="post">
-        <label for="nome">Nome:</label>
-        <input type="text" id="nome" name="nome" required>
-        <label for="cpf">CPF:</label>
-        <input type="text" id="cpf" name="cpf" required>
-        <button type="submit">Cadastrar</button>
-    </form>
+          </li>
+          <li>
+            <a href="{{ url_for('index') }}">Home</a>
+          </li>
+          <li>
+            <a href="{{ url_for('cadastrarPessoas') }}">Cadastrar Pessoas</a>
+          </li>
+        </ul>
+      </nav>
+    </section>
+  </header>
+  <div class="lista">
+    <h2 class="titulo2">Pessoas cadastradas</h2>
 
-    <!-- Lista de pessoas cadastradas -->
-    <h2>Pessoas Cadastradas</h2>
-    <ul>
-        {% for pessoa in pessoas %}
-        <li>Nome: {{ pessoa.nome }}, CPF: {{ pessoa.cpf }}
-            [<a href="/editar/{{ pessoa.cpf }}">Editar</a>]
-            [<a href="/excluir/{{ pessoa.cpf }}">Excluir</a>]
-        </li>
+    <table class="tabela">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nome</th>
+          <th>CPF</th>
+          <th>Editar</th>
+          <th>Excluir</th>
+        </tr>
+      </thead>
+      <tbody id="pessoas-cadastrads">
+        <tr>
+          {% for pessoa in pessoas %}
+          <td>{{ pessoa[0] }}</td>
+          <td>{{ pessoa[1] }}</td>
+          <td>{{ pessoa[2] }}</td>
+          <td><a href="/editar/{{ pessoa[0] }}">Editar</a></td>
+          <td><a href="/pessoas/{{ pessoa[0] }}">Excluir</a></td>
+        </tr>
         {% endfor %}
-    </ul>
+      </tbody>
+    </table>
+  </div>
+  <footer>
+    <div>
+      <div class="footer-links">
+        <ul>
+          <li><a href="#">Not&iacute;cias</a></li>
+          <li><a href="#">Sobre</a></li>
+          <li><a href="#">Contato</a></li>
+        </ul>
+      </div>
+      <div class="social-medias">
+        <ul>
+          <li><a href="#" class="fa fa-facebook"></a></li>
+          <li><a href="#" class="fa fa-github"></a></li>
+          <li><a href="#" class="fa fa-instagram"></a></li>
+          <li><a href="#" class="fa fa-linkedin"></a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
 </body>
 
 </html>
